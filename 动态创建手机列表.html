@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+      }
+      ul {
+        list-style: none;
+      }
+      .clearfix::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .list {
+        width: 520px;
+        padding: 10px 0;
+        border: 1px solid #eee;
+        margin: 10px auto;
+      }
+      li {
+        float: left;
+        width: 160px;
+        height: 265px;
+        padding-bottom: 10px;
+        box-shadow: 4px 4px 8px 2px #ccc;
+        border-radius: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+      }
+      li img {
+        width: 160px;
+      }
+      li div {
+        padding-left: 20px;
+      }
+      .price {
+        color: #ad3485;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .name {
+        color: #ccc;
+        padding: 5px 0 5px 20px;
+      }
+      .size > span {
+        display: inline-block;
+        padding: 4px 8px;
+        background-color: #ccc;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="button" value="按钮" id="btn" />
+    <div class="list clearfix">
+      <ul id="container">
+        <!-- 有单个商品的结构 -->
+        '
+        <li>
+          <a href="javascript:;"><img src="images/phone1.png"/></a>
+          <div class="price">￥3998</div>
+          <div class="name">小米 红米Note4X 全网通版</div>
+          <div class="size"><span>5.1-5.5英寸</span></div>
+        </li>
+        '
+      </ul>
+    </div>
+  </body>
+</html>
+<script>
+  data = [
+    {
+      img: "images/phone1.png",
+      price: 3998,
+      name: "小米 红米Note4X 全网通版",
+      size: "5.1-5.5英寸"
+    },
+    {
+      img: "images/phone2.png",
+      price: 4998,
+      name: "荣耀 畅玩6X 3GB 32GB 全网通版",
+      size: "5.1-5.5英寸"
+    },
+    {
+      img: "images/phone3.png",
+      price: 3688,
+      name: "华为 Mate 9 Pro 6GB+128GB版",
+      size: "5.1-5.5英寸"
+    },
+    {
+      img: "images/phone4.png",
+      price: 1998,
+      name: "Apple iPhone X (A1903) 64GB",
+      size: "5.1-5.5英寸"
+    },
+    {
+      img: "images/phone5.png",
+      price: 8998,
+      name: "荣耀Play 全网通版 4GB+64GB",
+      size: "5.1-5.5英寸"
+    },
+    {
+      img: "images/phone6.png",
+      price: 498,
+      name: "pple iPhone 6 32GB 金色",
+      size: "4.8-5.2英寸"
+    }
+  ];
+  var ul = document.getElementById("container");
+  var btn = document.getElementById("btn");
+  // 一个商品的结构
+//   ul.innerHTML =
+//     '<li><a href="javascript:;"><img src="images/phone1.png"></a><div class="price">￥3998</div><div class="name">小米 红米Note4X 全网通版</div><div class="size"><span>5.1-5.5英寸</span></div></li>';
+
+  // 遍历创建多个结构
+  
+  btn.onclick = function() {
+    var html = "";
+    // 创建一个空字符串，保存遍历出来的结构字符串
+    for (var i = 0; i < data.length; i++) {
+      html +=
+        '<li><a href="javascript:;"><img src="' +
+        data[i].img +
+        '"></a><div class="price">' +
+        data[i].price +
+        '</div><div class="name">' +
+        data[i].name +
+        '</div><div class="size">' +
+        data[i].size +
+        "</span></div></li>";
+    }
+    // 将创建好的字符串结构，以这种方式，转化成元素，并且插入到ul里面v
+    ul.innerHTML = html;
+  };
+</script>

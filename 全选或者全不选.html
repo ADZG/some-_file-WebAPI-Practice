@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #c0c0c0;
+            width: 500px;
+            margin: 100px auto;
+            text-align: center;
+        }
+        th {
+            background-color: #09c;
+            font: bold 16px "微软雅黑";
+            color: #fff;
+            height: 24px;
+        }
+        td {
+            border: 1px solid #d0d0d0;
+            color: #404060;
+            padding: 10px;
+        }
+</style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>
+                <input type="checkbox" name="" id="checkAll"/>全选/全不选
+            </th>
+            <th>菜名</th>
+            <th>商家</th>
+            <th>价格</th>
+        </tr>
+        <tr>
+            <td>
+                <input  class="item" type="checkbox" name="check"/>
+            </td>
+            <td>红烧肉</td>
+            <td>隆江猪脚饭</td>
+            <td>￥200</td>
+        </tr>
+        <tr>
+            <td>
+                <input  class="item" type="checkbox" name="check"/>
+            </td>
+            <td>香酥排骨</td>
+            <td>隆江猪脚饭</td>
+            <td>￥998</td>
+        </tr>
+        <tr>
+            <td>
+                <input class="item" type="checkbox" name="check"/>
+            </td>
+            <td>北京烤鸭</td>
+            <td>隆江猪脚饭</td>
+            <td>￥88</td>
+        </tr>
+    </table>
+
+    <input type="button" value="提交" id="btn">
+    用户名：<input type="text" id="txt">
+
+
+    <input type="button" value="开/关灯" id="lade">
+</body>
+</html>
+
+<script>
+    // 核心，反证法，立一个flag判断
+var ck=document.getElementById("checkAll");
+var cks=document.getElementsByClassName("item");
+// 给全选按钮注册点击事件
+// 如果全选按钮为true，则其他的小选框全部为true
+ck.onclick=function(){
+    // 判断，
+    // if(ck.checked=true){
+    //     for(var i=0;i<cks.length;i++){
+    //         cks[i].checked=true;
+    //     }
+    // }else{
+    //     for(var i=0;i<cks.length;i++){
+    //         cks[i].checked=true;
+    //     }
+    // }
+    for(var i=0;i<cks.length;i++){
+        // 所有的小选框的全部选中，全选框才会选中，两个状态是一样的
+            cks[i].checked=ck.checked;
+        }
+}
+
+// 给所有的小按钮注册点击事件,点击的时候，检查所有的选框状态
+for(var j=0;j<cks.length;j++){
+    cks[j].onclick=function(){
+        var flag=true;
+        for(var i=0; i<cks.length;i++){
+            // 之后，检测所有的选框状态
+            if(cks[i].checked===false){
+                // 假设有一个没有选中，则返回false，并且直接跳出循环
+                flag=false;
+                break;
+            }
+        }
+        ck.checked=flag;
+    }
+    
+}
+
+document.getElementById("btn").onclick=function(){
+    document.getElementById("txt").disabled="disabled"
+    var str=document.getElementById("txt").value;
+    if(str.length>=3&&str.length<=6){
+        str.style.color="red";
+    }else{
+        str.style.color="";
+    }
+}
+var ss=true
+document.getElementById("lade").onclick=function(){
+    if(ss){
+        document.body.style.backgroundColor="black"
+        ss=false
+    }else{
+        document.body.style.backgroundColor=""
+        ss=true
+    }
+}
+
+</script>

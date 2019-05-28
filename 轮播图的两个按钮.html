@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            width: 730px;
+            height: 454px;
+            padding: 8px;
+            border: 1px solid green;
+            margin: 100px auto;
+        }
+
+        .inner {
+            position: relative;
+            overflow: hidden;
+            height: 454px;
+        }
+
+        #imglist {
+            width: 700%;
+            position: absolute;
+            left: 0;
+        }
+
+        li {
+            float: left;
+        }
+
+        .list {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -85px;
+        }
+
+        .list i {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #333;
+            float: left;
+            font-style: normal;
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .list i:last-child {
+            margin-right: 0;
+        }
+
+        .list i.current {
+            background-color: skyblue;
+            color: #fff;
+        }
+
+        .arrow {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            margin-top: -30px;
+        }
+
+        .arrow-left,
+        .arrow-right {
+            width: 30px;
+            height: 60px;
+            position: absolute;
+            font: 20px/60px "consolas";
+            color: #fff;
+            background-color: rgba(0, 0, 0, .3);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .arrow-right {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="inner" id="inner">
+            <ul id="imglist">
+                <li><a href="#"><img src="images/1.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/2.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/3.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/4.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/5.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/6.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/1.jpg" alt=""></a></li>
+            </ul>
+            <div class="list">
+                <i class="current">1</i>
+                <i>2</i>
+                <i>3</i>
+                <i>4</i>
+                <i>5</i>
+                <i>6</i>
+            </div>
+            <div class="arrow">
+                <span class="arrow-left">&lt;</span>
+                <span class="arrow-right">&gt;</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<script src="./animation.js"></script>
+<script>
+    // 获取两个按钮的元素
+    var btnlfte = document.querySelector(".arrow-left");
+    var btnright = document.querySelector(".arrow-right");
+    // 获取图片的宽度=div相框的宽度
+    var imgwidth = document.querySelector("#inner").offsetWidth;
+    // 获取所有小圆圈的元素
+    var cro = document.querySelectorAll(".list>i");
+    // 设置点击事件
+    // 因为当前点击的this,并不能用作索引,每次点击的索引的单独设置
+    var index = 0;
+    var ul = document.querySelector("#imglist")
+
+    // 轮播图的右键按钮
+    btnright.onclick = move;
+    // 将函数单独保存
+    function move() {
+        // 判断,如果走到最后一张图片,则直接跳到第一张
+        if (index === ul.children.length - 1) {
+            // 则直接跳到第一张
+            ul.style.left = 0;
+            // 并且索引归零
+            index = 0;
+        }
+        index++;
+        // 移动距离,等于索引*图片的宽度
+        var target = imgwidth * index * -1;
+        animation(ul, target, 40);
+
+        // 小圆圈的颜色变换
+        // 先设置排他。清除所有的颜色
+        for (var i = 0; i < cro.length; i++) {
+            // 所有颜色去除
+            cro[i].classList.remove("current")
+        }
+        // 获取当前点击的按钮的索引
+        // 因为图片总共有7张，索引只到5，所以，当图片跳到第七张的是，此时索引因为回到0的位置
+        if (index === ul.children.length - 1) {
+            // 如果索引加到跟图片索引一样的时候
+            // 小圆圈的第一个元素样式颜色
+            cro[0].classList.add("current");
+        } else {
+            // 否则按正常的方式设置样式
+            cro[index].classList.add("current");
+        }
+    }
+
+
+    // 轮播图的左键按钮
+    btnlfte.onclick = function () {
+        // 每次点击都自减索引
+        //    如果索引索引减到0的时候，则跳到最后一张
+        if (index === 0) {
+            // 当前的图片应该走到最大的距离
+            var temp = (ul.children.length - 1) * imgwidth * - 1;
+            ul.style.left = temp + "px";
+            // 索引要变成6
+            index = ul.children.length - 1;
+        }
+        // 移动的距离=图片的索引*当前的索引
+        index--;
+
+        var target = imgwidth * index * -1;
+        // 使用动画效果显示为缓动
+        animation(ul, target, 40);
+
+
+        for (var i = 0; i < cro.length; i++) {
+            // 所有颜色去除
+            cro[i].classList.remove("current")
+        }
+        cro[index].classList.add("current");
+    }
+
+
+    // 定时器自动轮播
+    var time = setInterval(function () {
+        move();
+    }, 2000)
+    var box = document.querySelector("#box");
+    box.onmouseover = function () {
+        clearInterval(time)
+    }
+    box.onmouseout = function () {
+        time=setInterval(function () {
+            move();
+        }, 2000)
+    }
+</script>

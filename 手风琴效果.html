@@ -1,0 +1,76 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>做人要对自己狠一点</title>
+    <style>
+
+        ul {
+            list-style: none;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        div {
+            width: 1150px;
+            height: 400px;
+            margin: 50px auto;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+
+        div li {
+            width: 240px;
+            height: 400px;
+            float: left;
+            transition: width 300ms;
+        }
+
+        div ul {
+            width: 1300px;
+        }
+
+        /* div {
+          background-image: url('');
+        } */
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+</html>
+<script>
+var list=document.querySelectorAll("li")
+// 只有这种获取元素的方式才可以配合foreach使用，该选择器获取的类型为nodelist 节点列表类型
+// 循环添加背景图
+list.forEach(function(item,index){
+    // index是图片的索引，可以直接使用。
+    // item当前对象里的所有元素了
+    item.style.backgroundImage="url(./images/"+(index+1)+".jpg";
+    // 循环遍历的方式，注册点击事件
+    item.onmouseover=function(){
+        list.forEach(function(item){
+            item.style.width=100+"px";
+        })
+        this.style.width=800+"px";
+    }
+})
+list.forEach(function(item){
+    item.onmouseout=function(){
+        list.forEach(function(item){
+            item.style.width=240+"px";
+        })
+    }
+})
+
+</script>

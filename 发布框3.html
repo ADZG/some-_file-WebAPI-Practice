@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            * {
+              margin: 0;
+              padding: 0;
+              list-style: none;
+            }
+      
+            .weibo {
+              width: 600px;
+              border: 1px solid #ccc;
+      
+              margin: 100px auto;
+              padding: 10px;
+            }
+      
+            .weibo-text {
+              width: 590px;
+              height: 140px;
+              padding: 5px;
+              border: 1px solid #ccc;
+              outline: none;
+              resize: none;
+            }
+      
+            .weibo-text:focus {
+              border-color: #f60;
+            }
+      
+            .weibo-btn {
+              width: 80px;
+              height: 30px;
+              background-color: #f90;
+              color: #fff;
+              border: 0 none;
+              margin-top: 5px;
+              border-radius: 3px;
+              cursor: pointer;
+              outline: 0 none;
+            }
+      
+            .weibo-list {
+              padding-top: 10px;
+            }
+      
+            .weibo-list li {
+              font-size: 14px;
+              line-height: 30px;
+              border-bottom: 1px dotted #ccc;
+              overflow: hidden;
+            }
+      
+            .weibo-list li p {
+              float: left;
+            }
+      
+            .weibo-list li span {
+              float: right;
+              cursor: pointer;
+            }
+      
+            .weibo-list li input {
+              height: 24px;
+              line-height: 24px;
+              width: 300px;
+              font-size: 14px;
+              border: 0 none;
+            }
+          </style>
+        </head>
+      
+        <body>
+          <div class="weibo">
+            <textarea class="weibo-text"></textarea>
+            <input class="weibo-btn" value="发布" type="button" />
+            <ul class="weibo-list">
+              <li>
+                <p>快来收了这九款用上就停不下来的应用吧！！</p>
+                <span>删除</span>
+              </li>
+              <li>
+                <p>超级详细的云南大理自助游攻略</p>
+                <span>删除</span>
+              </li>
+              <li>
+                <p>外国最近很火的舞蹈，舒服简单自然，太棒了！</p>
+                <span>删除</span>
+              </li>
+            </ul>
+          </div>
+        </body>
+      </html>
+</body>
+</html>
+<script>
+    // 动态创建li标签，用户输入内容，可以直接附加在新的li标签内，可以删除，键盘事件
+    // 获取所有操作的元素
+    var ul=document.querySelector(".weibo-list")
+    var btn=document.querySelector(".weibo-btn");
+    var txt=document.querySelector(".weibo-text");
+    // 增加点击事件
+    btn.onclick=function(){
+        // 获取文本域内的文本
+        var text=txt.value;
+        // 创建新的元素，并且添加
+        var li=document.createElement("li");
+        // 在li里面插入p标签和span标签和内容
+        li.innerHTML="<p>"+text+"</p> <span>删除</span>";
+        // 把新创建的元素添加的ul列表中
+        // ul.appendChild(li);
+        // 把新创建的标签放在前面
+        ul.insertBefore(li,ul.children[0]);
+        // 点击之后，清空文本域内的内容
+        txt.value="";
+    }
+    
+    // 删除的功能的
+    // 因为该列表是动态创建的，可以给父元素绑定点击事件，
+    // 在点击的时候，检测事件目标是否是span
+    ul.addEventListener("click",function(e){
+        console.log(e.target.nodeName);
+        if(e.target.nodeName==="SPAN"){
+          // 当前的e.target就是点击的span元素
+            var list=e.target.parentNode;
+            ul.removeChild(list);
+        }
+    },false)
+
+    // 键盘事件
+
+    // 给文本框添加键盘按下事件
+    txt.onkeydown=function(e){
+        // 判断，如果用户是回车，则直接发布
+        if(e.keyCode==13){
+            btn.onclick();
+        }
+    }
+</script>

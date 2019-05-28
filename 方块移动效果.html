@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+    div{
+        width: 100px;
+        height: 100px;
+        background-color: #66ccff;
+        position: absolute;
+        left: 20px;
+        top: 30px;
+    }
+    </style>
+</head>
+<body>
+    <input type="button" value="启动">
+    <div>
+
+    </div>
+</body>
+</html>
+<script>
+// 获取操作的元素
+var btn=document.querySelector("input");
+var dv=document.querySelector("div");
+// 获取当前的方块位置  获取当前div和定位过的父元素的位置(没有则是body)
+// 注册点击事件
+btn.onclick=function(){
+    var current=dv.offsetLeft;
+    var time=setInterval(function(){
+        // 每次移动五个像素
+        current+=5;
+        dv.style.left=current+"px";
+        // 当移动到800的时候。清理定时器
+        if(current===800){
+            clearInterval(time);
+        }
+    },20)
+}
+
+
+
+</script>

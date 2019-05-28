@@ -1,0 +1,125 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 350px;
+            height: 350px;
+            margin: 100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .big {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: 0;
+            left: 360px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+        }
+
+        .mask {
+            width: 175px;
+            height: 175px;
+            background: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            cursor: move;
+            display: none;
+        }
+
+        .small {
+            position: relative;
+        }
+        .big>img{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="small"><!--小层-->
+        <img src="images/small.png" width="350" alt=""/>
+        <div class="mask"></div><!--遮挡层-->
+    </div>
+    <div class="big"><!--大层-->
+        <img src="images/big.jpg" width="800" alt=""/><!--大图-->
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+// 获取各种需要操作的元素
+var small=document.querySelector(".small");
+var mask=document.querySelector(".mask");
+var big=document.querySelector(".big");
+var box=document.querySelector(".box");
+var img=document.querySelector(".big>img")
+// 给小盒子注册鼠标进入事件
+small.onmouseover=function(){
+    // 当鼠标进入小盒子的时候 黄图显示 大图也显示
+    mask.style.display="block";
+    big.style.display="block";
+}
+// 当鼠标离开时的时候，大图和黄图都隐藏
+small.onmouseout=function(){
+    // 当鼠标进入小盒子的时候 黄图显示 大图也显示
+    mask.style.display="none";
+    big.style.display="none";
+}
+
+// 给小黄图注册鼠标移动的事件
+small.onmousemove=function(e){
+    // 鼠标的在小黄图的中心位置，等于当前鼠标的在页面的坐标，小黄图的实际宽高的一半，再减去box在页面中的位置
+    // 本来是因为减去smile在页面中的位置，但是因为smile用了定位，offsetLeft是根据最近的一个有定位的父元素的j距离
+    // 这里实际上box的位置，等于smile1，所以直接获取box的位置，box在最外层，所以他获取的是准确的位置
+    var mouseX=e.pageX;
+    var mouseY=e.pageY;
+    var x=mouseX-mask.offsetWidth/2-box.offsetLeft;
+    var y=mouseY-mask.offsetHeight/2-box.offsetTop;
+    // 判断，如果小黄图的位置，为负数的时候，会抛出左上角，所以给他限制最小位置
+    if(x<=0){
+        x=0;
+    }
+    if(y<=0){
+        y=0
+    }
+
+    // 判断，最大的位置
+    // 最大的位置，small的宽高，减去当前小黄图的宽高
+    var mx=small.offsetWidth-mask.offsetWidth;
+    var my=small.offsetHeight-mask.offsetHeight;
+
+    if(x>mx){
+        x=mx;
+    }
+    if(y>=my){
+        y=my;
+    }
+
+    // 最后给小黄图设置位置
+    mask.style.left=x+"px";
+    mask.style.top=y+"px";
+
+    //大图的位置 = 大图的最大移动距离 * 遮罩的当前位置 / 遮罩的最大移动距离
+// 大图的最大移动距离，等于图片宽高-盒子的宽高
+    var imgmaxX=img.offsetWidth-big.offsetWidth;
+    var imgmaxY=img.offsetHeight-big.offsetHeight;
+
+    var maxphotoX=imgmaxX*x/mx; 
+    var maxphotoY=imgmaxY*y/my;
+    img.style.left=-maxphotoX+"px";
+    img.style.top=-maxphotoY+"px";
+}
+</script>

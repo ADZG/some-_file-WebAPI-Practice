@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .weibo {
+        width: 600px;
+        border: 1px solid #ccc;
+
+        margin: 100px auto;
+        padding: 10px;
+      }
+
+      .weibo-text {
+        width: 590px;
+        height: 140px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+        resize: none;
+      }
+
+      .weibo-text:focus {
+        border-color: #f60;
+      }
+
+      .weibo-btn {
+        width: 80px;
+        height: 30px;
+        background-color: #f90;
+        color: #fff;
+        border: 0 none;
+        margin-top: 5px;
+        border-radius: 3px;
+        cursor: pointer;
+        outline: 0 none;
+      }
+
+      .weibo-list {
+        padding-top: 10px;
+      }
+
+      .weibo-list li {
+        font-size: 14px;
+        line-height: 30px;
+        border-bottom: 1px dotted #ccc;
+        overflow: hidden;
+      }
+
+      .weibo-list li p {
+        float: left;
+      }
+
+      .weibo-list li span {
+        float: right;
+        cursor: pointer;
+      }
+
+      .weibo-list li input {
+        height: 24px;
+        line-height: 24px;
+        width: 300px;
+        font-size: 14px;
+        border: 0 none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="weibo">
+      <textarea class="weibo-text"></textarea>
+      <input class="weibo-btn" value="发布" type="button" />
+      <ul class="weibo-list">
+        <li>
+          <p>快来收了这九款用上就停不下来的应用吧！！</p>
+          <span>删除</span>
+        </li>
+        <li>
+          <p>超级详细的云南大理自助游攻略</p>
+          <span>删除</span>
+        </li>
+        <li>
+          <p>外国最近很火的舞蹈，舒服简单自然，太棒了！</p>
+          <span>删除</span>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
+<script>
+  // 获取各种要操作的元素，文本框，按钮，
+  var textarea = document.querySelector(".weibo-text");
+  var ul = document.querySelector(".weibo-list");
+  var btn = document.querySelector(".weibo-btn");
+  // 点击的时候，把文本域内的内容，给新创建的元素
+  btn.onclick = function() {
+      if(textarea.value===""){
+          alert("请重新输入")
+      }else{
+        var txt = textarea.value;
+      // 创建新的元素
+      var li = document.createElement("li");
+      // 将创建好的新元素，追加到ul里面
+    //   ul.appendChild(li);
+    // 在前面插入
+    ul.insertBefore(li,ul.children[0]);
+      // li里面追加p标签以及相关的内容
+      li.innerHTML = "<p>" + txt + "</p> <span>删除</span>";
+      // 内容插入完成之后，清空文本域内的值
+      textarea.value = "";
+      }
+    }
+
+
+    // 删除操作
+    // 动态创建的元素，需要使用事件委托，将点击事件绑定在父元素身上，
+    // 判断点击的元素是否是指定的元素
+    // 因为p和span都可以另外注册事件，所以，最好是用其他的绑定方式i
+    ul.addEventListener("click",function(e){
+        // 判断当前点击的元素，是否是span标签
+        console.log(e.target.nodeName);
+        if(e.target.nodeName==="SPAN"){
+            // e.target指向的对象就是当前的span
+            // this当前指向的是ul
+            var list=e.target.parentNode;
+            ul.removeChild(list);
+        }
+    },false)
+
+    // 给文本域注册键盘事件
+    textarea.onkeydown=function(e){
+        // 判断，如果事件对象的keycode为13.则执行发布操作
+        if(e.ctrlKey&&e.keyCode===13){
+            btn.onclick();
+        }
+    }
+</script>

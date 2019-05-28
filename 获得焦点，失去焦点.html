@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+    div{
+        text-align: center;
+    }
+    span{
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        background-color:#66ccff;
+    }
+    </style>
+</head>
+<body>
+    <!-- dateset 设置自定义属性的方式 -->
+    <div>
+    <input type="button" value="按钮" data-str="0">
+    <input type="button" value="按钮" data-str="1">
+    <input type="button" value="按钮" data-str="2">
+    <input type="button" value="按钮" data-str="3">
+    <input type="button" value="按钮" data-str="4">
+    
+    <div>
+        <span>123</span>
+        <span>123</span>
+        <span>123</span>
+        <span>123</span>
+        <span>123</span>
+    </div>
+
+    <input type="text" value="零食" id="btn">
+
+</body>
+</html>
+<script>
+var inputs=document.getElementsByTagName("input");
+var spans=document.getElementsByTagName("span");
+for(var i=0;i<inputs.length;i++){
+    // 给所有的input的标签添加点击事件
+    inputs[i].onclick=function(){
+        var col=this.dataset.str;
+        spans[col].style.backgroundColor="green";
+    }
+}           
+
+var btn=document.getElementById("btn");
+btn.onfocus=function(){
+    if(btn.value=="零食"){
+        btn.value="";
+    }
+}
+btn.onblur=function(){
+    if(btn.value==""){
+        btn.value="零食";
+    }
+}
+
+
+</script>

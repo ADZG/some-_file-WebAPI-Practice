@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // 现在提供三个参数element,元素，目标距离，20毫秒内移动的距离step
+    function animation(element, target, step) {
+        // 调用函数的时候，首先就清理定时器
+        clearInterval(element.time)
+        // 将定时器的id值，储存在对象的属性中
+        element.time = setInterval(function () {
+            // 首先获取元素现在的位置
+            var current = element.offsetLeft;
+            // 判断方向
+            // 如果当前的位置，小于目标位置，说明，此时正方向
+            if (current <= target) {
+                current += step
+            } else {
+                current += step;
+            }
+            // 修改样式
+            element.style.left = current + "px";
+            // 判断元素当前的位置和目标位置的绝对值，是否已经快到目标位置，如果已经不满一次运动，则直接到达目标位置
+            if (Math.abs(target - current) <= step) {
+                element.style.left = target + "px";
+
+            }
+        }, 20)
+    }
+
+
+
+
+
+
+</script>

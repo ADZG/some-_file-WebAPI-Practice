@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      ul {
+        margin: auto;
+        width: 800px;
+      }
+      li {
+        list-style: none;
+        height: 40px;
+      }
+      .bg {
+        background-color: aquamarine;
+      }
+      .bg1 {
+        background-color: chartreuse;
+      }
+      .bg3 {
+        background-color: #66ccff;
+      }
+      .off {
+        background-color: #66ccff;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="button" value="开/关灯" id="btn" />
+    <ul>
+      <li>123</li>
+      <li>123</li>
+      <li>123</li>
+      <li>123</li>
+      <li>123</li>
+      <li>123</li>
+      <li>123</li>
+      <li>123</li>
+      <li>123</li>
+      <li>123</li>
+    </ul>
+  </body>
+</html>
+<script>
+  function random(n, m) {
+    return Math.floor(Math.random() * (m - n + 1) + n);
+  }
+  // 给所有的li标签先加颜色
+  var list = document.querySelectorAll("li");
+  for (var i = 0; i < list.length; i++) {
+    if (i % 2 == 0) {
+      list[i].classList.add("bg");
+      list[i].color = "bg";
+      // 给对象添加新的属性，保存之前设置的颜色的
+    } else {
+      list[i].classList.add("bg1");
+      list[i].color = "bg1";
+    }
+  }
+  // 给所有的li标签加入鼠标进入事件
+  for (var i = 0; i < list.length; i++) {
+    list[i].onmouseover = function() {
+      this.className = "bg3";
+    }
+    list[i].onmouseout = function() {
+      // 提取当前事件对象的属性，
+      var col = this.color;
+      // 当前事件源的样式名
+      this.className = col;
+    };
+  }
+
+  var btn = document.getElementById("btn");
+  btn.onclick = function() {
+    setInterval(function() {
+      document.body.classList.toggle("off");
+    }, 300);
+  };
+  function newColor() {
+    var sum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f"];
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+      color += sum[random(0, 15)];
+    }
+    return color;
+  }
+  console.log(newColor());
+</script>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <input type="button" value="点击生成列表" id="btn" />
+    <ul></ul>
+  </body>
+</html>
+<script>
+  var arr = ["小米", "华为", "苏宁", "三星", "苹果"];
+  var btn=document.getElementById("btn");
+  var ul=document.querySelector("ul");
+  // 首先创建一个元素
+  var li=document.createElement("li");
+  // 在元素内添加内容
+  // li.innerHTML="小米";
+  // 将这个元素插入到父元素内
+  // ul.appendChild(li);
+  // 注册点击事件
+  btn.onclick=function(){
+      for(var i=0;i<arr.length;i++){
+          // 循环遍历的方式，创建多个li并且加入内容
+      var li=document.createElement("li");
+      li.innerHTML=arr[i];
+      ul.appendChild(li);
+      }
+  }
+
+
+
+//   第二种方式，以innerhtml的方式创建
+//   通过innerhtml在ul里面创建一个li
+  // ul.innerHTML="<li> 小米</li>";
+//   注册点击事件，循环遍历的方式创建多个
+  btn.onclick=function(){
+      //ul.innerHTML+="<li> </li>";//这种方式，每次都会覆盖之前的内容，
+      var  html="";
+      // 声明一个空字符串，用来储存遍历出来的内容
+      for(var i=0;i<arr.length;i++){
+          html+="<li>"+arr[i]+"</li>";
+      }
+      // 最后遍历出来的内容，给到ul里 
+      ul.innerHTML=html;
+  }
+</script>

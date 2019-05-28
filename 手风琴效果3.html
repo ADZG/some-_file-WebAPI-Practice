@@ -1,0 +1,74 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>做人要对自己狠一点</title>
+    <style>
+
+        ul {
+            list-style: none;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        div {
+            width: 1150px;
+            height: 400px;
+            margin: 50px auto;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+
+        div li {
+            width: 240px;
+            height: 400px;
+            float: left;
+            transition: width 300ms;
+        }
+
+        div ul {
+            width: 1300px;
+        }
+
+        /* div {
+          background-image: url('');
+        } */
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+</html>
+<!-- 将图片全部载入对应的li标签 -->
+<script>
+var list=document.querySelectorAll("li");
+list.forEach(function(item,index){
+    // 给所有的li载入背景图
+    item.style.backgroundImage="url(./images/"+(index+1)+".jpg)";
+    item.onmouseover=function(){
+        // 排他事件
+        list.forEach(function(item){
+            item.style.width=100+"px";
+        })
+        this.style.width=800+"px";
+        
+    }
+})
+list.forEach(function(item){
+    item.onmouseout=function(){
+        list.forEach(function(item){
+            item.style.width=240+"px";
+        })
+    }
+})
+</script>

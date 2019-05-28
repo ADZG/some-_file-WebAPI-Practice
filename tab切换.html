@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      div {
+        text-align: center;
+      }
+      span {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+      }
+      .bg1 {
+        background-color: aqua;
+      }
+      .bg2 {
+        background-color: #66ffcc;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="button" value="按钮" class="bg1" />
+      <input type="button" value="按钮" class="bg1" />
+      <input type="button" value="按钮" class="bg1" />
+      <input type="button" value="按钮" class="bg1" />
+      <input type="button" value="按钮" class="bg1" />
+    </div>
+    <div>
+      <span>123</span>
+      <span>123</span>
+      <span>123</span>
+      <span>123</span>
+      <span>123</span>
+    </div>
+  </body>
+</html>
+<script>
+  var inputs = document.getElementsByTagName("input");
+  var spans = document.getElementsByTagName("span");
+  // 给所有的input标签注册点击事件，
+  for (var i = 0; i < inputs.length; i++) {
+    // 给所有的input设置新的属性
+    inputs[i].data = i;
+    inputs[i].onmouseover = function() {
+      var list = this.data;
+      spans[list].classList.toggle("bg2");
+    }
+  }
+</script>

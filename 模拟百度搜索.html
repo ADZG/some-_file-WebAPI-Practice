@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 800px;
+            margin: 100px auto;
+        }
+        input {
+            float: left;
+            height: 50px;
+            border: 0 none;
+            outline: 1px solid #0094ff;
+        }
+        input#txt {
+            width: 600px;
+        }
+        input#search {
+            width: 200px;
+        }
+        ul {
+            list-style: none;
+            padding-top: 50px;
+        }
+        li {
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px dashed #ccc;
+            width: 600px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="box">
+        <input type="text" name="" id="txt"/>
+        <input type="button" value="百度一下" id="search"/>
+        <ul id="container">
+
+        </ul>
+    </div>
+</body>
+</html>
+<script>
+  /**
+     *  在输入的时候，把输入的关键字获取到，发送到服务器，匹配跟这个关键字相关的词汇，动态的生成在页面上
+     *
+     *      输入 - 用到键盘 - 键盘事件
+     *          keyup           键盘弹起   √
+     *          keydown         键盘按下
+     *
+     *      得到当前在输入框里面的内容
+     *          输入框.value
+     *
+     *      发送到服务器，进行对比
+     *          - 没有服务器 - 自己准备一个数组，假装着就是一个服务器
+     *          - 跟数组里面的数据进行匹配
+     *              - 是否跟当前的内容有关系
+     *                  - 百度里面是认为是以 内容 开头
+     *                  - 我们的词汇少，只要是词汇里面包含当前的内容 - 就认为是有关系
+     *                      - indexOf 如果存在 >= 0 ,如果不存在 -1
+     *                      - indexOf 如果得到的结果不是-1，就是包含
+     *
+     *      筛选出一部分词汇
+     *          - 把这部分词汇展示在页面上
+     *          - 把数据写入li，把li写入ul
+     */
+    // 准备一个词汇的数组
+    var arr = ['123','123456','234','哈哈','哈哈嘿嘿','嘻嘻哈哈','东哥','龙哥'];
+    // 获取输入框的元素
+    var txt=document.querySelector("#txt");
+    var ul=document.getElementById("container");
+    // 注册键盘弹起事件
+    txt.onkeyup=function(){
+        // 获取用户在搜索框输入的内容
+        var val=this.value;
+        // 如果用户没有输入内容,则不能传入服务器,并且清空里面的所有内容
+        if(val===""){
+        ul.innerHTML="";
+            return 
+        }
+        // 建立一个数组，用来储存浏览器显示的数组
+        var temp=[];
+        // 把用户输入的内容和服务器那边数组对比
+        // indexOf()方法，检测当前元素，在某个数组中有没有对应的索引，如果有则返回索引，
+        // 如果没有，则返回-1
+        for(var i=0;i<arr.length;i++){
+            // 只要结果不是一，就有对应的值
+            if(arr[i].indexOf(val)!=-1){
+            temp.push(arr[i]);
+            // 如果有数据，这把当前的数据储存在新的数组中
+        }
+        }
+        // 生成新词汇之前，把以前的词汇数组给清除掉
+        ul.innerHTML="";
+        // 最后在ul里面创建对应li，并且插入到ul里面
+        for(var i=0;i<temp.length;i++){
+            var li=document.createElement("li");
+            li.innerHTML=temp[i];
+            ul.appendChild(li);
+        }
+
+
+    }
+
+</script>

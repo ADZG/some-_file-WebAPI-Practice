@@ -1,0 +1,111 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 350px;
+            height: 350px;
+            margin: 100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .big {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: 0;
+            left: 360px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+        }
+
+        .mask {
+            width: 175px;
+            height: 175px;
+            background: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            cursor: move;
+            display: none;
+        }
+
+        .small {
+            position: relative;
+        }
+        .big>img{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="small"><!--小层-->
+        <img src="images/small.png" width="350" alt=""/>
+        <div class="mask"></div><!--遮挡层-->
+    </div>
+    <div class="big"><!--大层-->
+        <img src="images/big.jpg" width="800" alt=""/><!--大图-->
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+// 先获取所有要操作的元素
+// 鼠标进入事件
+var small=document.querySelector(".small");
+var mask=document.querySelector(".mask");
+var big=document.querySelector(".big");
+var box=document.querySelector(".box")
+var img=document.querySelector(".big>img")
+// 鼠标进入，大图和遮挡层显示
+small.onmouseover=function(){
+    mask.style.display="block";
+    big.style.display="block";
+}
+// 鼠标离开，遮挡层和大图都隐藏
+small.onmouseout=function(){
+    mask.style.display="none";
+    big.style.display="none";
+}
+// 鼠标移动事件
+small.onmousemove=function(e){
+    // 鼠标的位置在小黄图的中心，则等于当前鼠标的坐标减去box大盒子的偏移量，再减去当前小黄图的宽高的一半
+    var x=e.pageX-box.offsetLeft-mask.offsetWidth/2;
+    var y=e.pageY-box.offsetTop-mask.offsetHeight/2;
+    // 计算鼠标能移动的最大值 
+    var maxX=small.offsetWidth-mask.offsetWidth;
+    var maxY=small.offsetHeight-mask.offsetHeight;
+    // 判断 如果黄图的top和left靠近左上角，则限定最小范围
+    // 如果黄图的top和left最大值超过盒子的宽高，则先限定最大范围
+    x=x<=0?0:x;
+    y=y<=0?0:y;
+    x=x>=maxX?maxX:x;
+    y=y>=maxY?maxY:y;
+    mask.style.left=x+"px";
+    mask.style.top=y+"px";
+
+    // 大图的最大移动距离  等于图片的宽高减去盒子的宽高
+    var removerimgX=img.offsetWidth-big.offsetWidth;
+    var removerimgY=img.offsetHeight-big.offsetHeight;
+
+    //大图的位置 = 大图的最大移动距离 * 遮罩的当前位置 / 遮罩的最大移动距离
+    var bigimgX=removerimgX*x/maxX;
+    var bigimgY=removerimgY*y/maxY;
+    
+    img.style.left=-bigimgX+"px";
+    img.style.top=-bigimgY+"px";
+}
+
+
+
+</script>

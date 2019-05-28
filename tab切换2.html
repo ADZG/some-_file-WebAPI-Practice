@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            text-align: center;
+        }
+        input{
+            width: 50px;
+        }
+    span{
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-color: aquamarine;
+        display: inline-block;
+    }
+    .hidd{
+        visibility: hidden;
+    }
+    .show{
+        visibility: visible;
+    }
+    
+    </style>
+</head>
+<body>
+    <div>
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+    </div>
+    <div>
+    <span class="hidd"></span>
+    <span class="hidd"></span>
+    <span class="hidd"></span>
+    <span class="hidd"></span>
+    <span class="hidd"></span>
+    </div>
+</body>
+</html>
+<script>
+    var inputs=document.getElementsByTagName("input");
+    var spans=document.getElementsByTagName("span");
+    // 点击按钮打开二级菜单
+    for(var i=0;i<inputs.length;i++){
+        // 给所有的input标签设置属性并且赋值(作为索引)
+        inputs[i].index=i;
+        inputs[i].onmouseover=function(){
+            for(var j=0;j<spans.length;j++){
+                spans[j].classList.remove("show")
+            }
+            spans[this.index].classList.toggle("show");
+        }
+        inputs[i].onmouseout=function(){
+            for(var i=0;i<spans.length;i++){
+                spans[i].classList.remove("show");
+            }
+        }
+    }
+
+</script>

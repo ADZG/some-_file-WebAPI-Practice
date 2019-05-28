@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            margin: auto;
+            width: 800px;
+        }
+        li{
+            list-style: none;
+            height: 40px;
+            line-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+    </ul>
+</body>
+</html>
+<script>
+var lists=document.getElementsByTagName("li");
+for(var i=0;i<lists.length;i++){
+    if(i%2==0){
+        lists[i].style.backgroundColor="#66ffcc";
+        // 给所有的li标签添加新的属性,并且把之前的颜色，保留在颜色里面
+        lists[i].oldColor="#66ffcc";
+    }else{
+        lists[i].style.backgroundColor="pink";
+        lists[i].oldColor="pink";
+    }
+}
+
+// 注册事件
+for(var j=0;j<lists.length;j++){
+    lists[j].onmouseover=function(){
+        this.style.backgroundColor="skyblue";
+    }
+    lists[j].onmouseout=function(){
+        // 获取当前的事件对象的自定义属性值
+        var col=this.oldColor;
+        // 当前鼠标移除的对象的的颜色，
+        this.style.backgroundColor=col;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+var list=document.getElementsByTagName("li");
+for(var i=0;i<list.length;i++){
+    if(i%2==0){
+        list[i].style.backgroundColor="pink";
+        list[i].color="pink";
+    }else{
+        list[i].style.backgroundColor="green";
+        list[i].color="green"
+    }
+}
+
+// 给所有的li标签注册事件
+for(var i=0;i<list.length;i++){
+    list[i].onmouseover=function(){
+        this.style.backgroundColor="#66ccff";
+    }
+    list[i].onmouseout=function(){
+        var colors=this.color;
+        this.style.backgroundColor=colors;
+    }
+}
+</script>

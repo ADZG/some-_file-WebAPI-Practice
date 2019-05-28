@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+            width: 900px;
+            height: 40px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>
+<script>
+    // 先给所有的标签遍历对应的颜色
+    var list = document.querySelectorAll("li");
+    for (var i = 0; i < list.length; i++) {
+        if (i % 2 === 0) {
+            list[i].style.backgroundColor = "#66ccff";
+            list[i].color = "#66ccff"
+        } else {
+            list[i].style.backgroundColor = "green";
+            list[i].color = "green";
+        }
+    }
+    // 创建鼠标进入事件
+    for (var k = 0; k < list.length; k++) {
+        list[k].onmouseover = function () {
+            this.style.backgroundColor = "yellow";
+
+            list[k].onmouseout = function () {
+                // 获取之前保存的的颜色
+                var col = this.color;
+                this.style.backgroundColor = col;
+            }
+        }
+    }
+</script>

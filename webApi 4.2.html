@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            text-align: center;
+            
+        }
+        input{
+            margin-left: 20px;
+        }
+        span{
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+    <div>
+        <span>123</span>
+        <span>123</span>
+        <span>123</span>
+        <span>123</span>
+        <span>123</span>
+</body>
+</html>
+<script>
+
+  var inputs=document.getElementsByTagName("input");
+  var spans=document.getElementsByTagName("span");
+    for(var i=0;i<inputs.length;i++){
+        inputs[i].index=i
+        // 给每个input对象添加新的属性，并且赋值
+        inputs[i].onclick=function(){
+            // 给所span标签颜色恢复原样
+            for(var i=0;i<spans.length;i++){
+                spans[i].style.backgroundColor="deeppink";
+            }
+            spans[this.index].style.backgroundColor="#66ffcc";
+        }  
+    }
+    // 给所有的input标签设置自定义属性index并且赋值，获取当前的点击的索引值
+    // 给所有的input对象，添加新的属性，并且赋值，获得当前点击过的input对象的值，并且作为方块的索引
+
+    
+
+    
+
+</script>

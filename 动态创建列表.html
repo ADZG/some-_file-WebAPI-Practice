@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+    li{
+      list-style:none;
+    }
+    /* li:hover{
+      background-color: red;
+    } */
+    
+    </style>
+  </head>
+  <body>
+    <input type="button" value="生成列表" id="btn" />
+    <ul></ul>
+  </body>
+</html>
+<script>
+  // 创建要添加的内容
+  var arr = ["小米", "华为", "苏宁", "三星", "苹果"];
+  var ul = document.querySelector("ul");
+  //   // 首先创建一个元素
+  var btn = document.querySelector("#btn");
+    btn.onclick = function() {
+      for (var i = 0; i < arr.length; i++) {
+        var li = document.createElement("li");
+        // 给里面添加内容
+        li.innerHTML = arr[i];
+        // 将创建的元素插入到父元素中
+        ul.appendChild(li);
+      }
+    }
+
+//   第二种方式
+//   子元素创建的方式
+  // ul.innerHTML="<li>小米</li>";
+//   用循环的方式，在li里面创建多个元素
+  // for(var i=0;i<arr.length;i++){
+  //     ul.innerHTML="<li>"+arr[i]+"</li>";
+  // }
+  btn.onclick = function() {
+    //   创建一个空字符串
+    var html="";
+    for (var i = 0; i < arr.length; i++) {
+        // 循环遍历的方式，创建一个结构字符串
+      html += "<li>" + arr[i] + "</li>";
+    }
+    // 使用这种方式，将结构字符串转化为元素内容
+    ul.innerHTML=html;
+  }
+//   下面的方式在实际的开发中更加常用
+
+
+// 由于是动态创建的，如果添加事件，需要事件委托
+ul.onmouseover=function(e){
+  if(e.target.nodeName==="LI"){
+    // e.target就是当前的事件对象li
+    e.target.style.backgroundColor="red";
+  }
+}
+</script>

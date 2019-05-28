@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="button" value="按钮" />
+    <input type="button" value="按钮" />
+    <input type="button" value="按钮" />
+    <input type="button" value="按钮" />
+    <input type="button" value="按钮" />
+  </body>
+</html>
+<script>
+  var btn = document.getElementsByTagName("input");
+  for (var i = 0; i < btn.length; i++) {
+    btn[i].onclick = function() {
+      //   当鼠标点击的时候，把所有的元素颜色重置
+      for (var j = 0; j < btn.length; j++) {
+        btn[j].style.backgroundColor = "";
+      }
+      //   重置后，当前点击的按钮，颜色变成蓝色
+      this.style.backgroundColor = "#66ccff";
+    };
+  }
+
+  f1();
+</script>

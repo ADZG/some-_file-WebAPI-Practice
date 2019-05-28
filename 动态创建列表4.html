@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="动态列表" id="btn">
+    <ul>
+
+    </ul>
+</body>
+</html>
+<script>
+var arr=["锤子科技","蓝绿大厂","花粉","米boy","雷猴"]
+var ul=document.querySelector("ul")
+btn.onclick=function(){
+    // 遍历创建多个li标签元素
+    for(var i=0;i<arr.length;i++){
+        var li=document.createElement("li");
+        // 创建元素，并将元素插入数组内的内容，再插入到ul标签中
+        li.innerHTML=arr[i];
+        ul.appendChild(li);
+    }
+}
+// 由于创建的是动态的列表，创建之后要再次遍历才能添加事件，所以为了方便
+// 我们要利用事件委托的方式
+// 1 给父元素ul绑定点击事件
+// 2 检测当前的事件对象，是不是相应子元素的
+
+ul.onmouseover=function(e){
+    if(e.target.nodeName=="LI"){
+        e.target.style.backgroundColor="red";
+    }
+}
+</script>
